@@ -1,0 +1,22 @@
+﻿@model List<Data.Reminder>
+@foreach (var item in Model.Take(3))
+        {
+            <div class="col-lg-12">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@item.RemindDate</h6>
+                        <p class="card-text">@item.Description</p>
+                        @if (item.Owner == User.Identity.Name)
+                        {
+                            @Html.ActionLink("Edycja", "Edit", "Reminders", new { ID = item.Id }, new { @class = "card-link" })
+                            @Ajax.ActionLink("Usuń", "Delete", "Reminders", new { ID = item.Id }, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "RemindersData" }, new { @class = "card-link" })
+                        }
+                        else
+                        {
+                         <h5>Jesteś uczestnikiem</h5>   
+                        }
+                    </div>
+                </div>
+            </div>
+        }

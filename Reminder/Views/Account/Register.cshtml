@@ -1,0 +1,35 @@
+﻿@model Reminder.Models.RegisterModel
+@{
+    ViewBag.Title = "Rejestracja nowego konta";
+}
+
+<div class="jumbotron">
+  <h1 class="display-4">@ViewBag.Title</h1>
+  <p class="lead">Utwórz konto, aby tworzyć swoje przypomnienia.</p>
+
+</div>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+
+    
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Rejestruj</button>
+    
+
+    
+    }
+
+</div>

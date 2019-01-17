@@ -1,0 +1,35 @@
+﻿@model Data.Reminder
+
+@using (Ajax.BeginForm("Add", "Reminders", new AjaxOptions() { UpdateTargetId = "RemindersData", InsertionMode = InsertionMode.Replace, OnSuccess = "$('#exampleModal').modal('hide')", HttpMethod="POST" }))
+{
+
+<div class="form-group">
+    <label>Tytuł</label>
+    @Html.TextBoxFor(model => model.Title, new {@class="form-control" })
+
+</div>
+<div class="form-group">
+    <label>Opis</label>
+    @Html.TextBoxFor(model=>model.Description, new {@class="form-control" })
+</div>
+
+
+<div class="form-group">
+    <label>Opis</label>
+    @Html.TextBoxFor(model=>model.RemindDate, new {@class="form-control datetimepicker" })
+</div>
+<div class="form-group">
+    <label>Grupa</label>
+    @Html.DropDownListFor(model=>model.Group,(SelectList)ViewBag.Groups,"Wybierz", new {@class="form-control" })
+</div>
+    
+    <button type="submit" class="btn btn-primary">ZAPISZ</button>
+}
+<script>
+    $('.datetimepicker').datetimepicker(
+        {
+            format: 'Y-m-d H:i'
+        });
+
+
+</script>

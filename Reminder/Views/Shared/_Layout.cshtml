@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="~/Content/jquery.datetimepicker.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.full.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Przypomnienia", "Index", "Reminders", null, new { @class = "nav-link" })
+                        </li>
+                    }
+
+                </ul>
+                <ul class="navbar-nav my-2">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">@Html.ActionLink("Zarejestruj", "Register", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Logowanie", "Login", "Account", null, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown dropleft">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                 @Html.ActionLink("Przypomnienia", "Index", "Reminders", null, new { @class = "dropdown-item" })
+
+                                <div class="dropdown-divider"></div>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
+                                }
+
+
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        </nav>
+
+
+
+
+
+
+    </header>
+    <div id="body">
+        @RenderBody()
+    </div>
+    <footer class="mt-5">
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Adam Pankowski</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+</body>
+</html>
+
+
+
+<style>
+    div.validation-summary-errors > ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        div.validation-summary-errors > ul > li {
+            padding: 15px;
+            background-color: #fafafa;
+            border-left: 6px solid #7f7f84;
+            margin-bottom: 10px;
+            -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            border-color: #d73814;
+        }
+
+
+    .notice:first-child {
+        margin-top: 10px;
+    }
+
+    .notice {
+        padding: 15px;
+        background-color: #fafafa;
+        border-left: 6px solid #7f7f84;
+        margin-bottom: 10px;
+        -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+        box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    }
+
+    .notice-sm {
+        padding: 10px;
+        font-size: 80%;
+    }
+
+    .notice-lg {
+        padding: 35px;
+        font-size: large;
+    }
+
+    .notice-success {
+        border-color: #80D651;
+    }
+
+        .notice-success > strong {
+            color: #80D651;
+        }
+
+    .notice-info {
+        border-color: #45ABCD;
+    }
+
+        .notice-info > strong {
+            color: #45ABCD;
+        }
+
+    .notice-warning {
+        border-color: #FEAF20;
+    }
+
+        .notice-warning > strong {
+            color: #FEAF20;
+        }
+
+    .notice-danger {
+        border-color: #d73814;
+    }
+
+        .notice-danger > strong {
+            color: #d73814;
+        }
+
+    .notice > .desc {
+        display: none;
+    }
+
+    .readMore {
+        cursor: pointer;
+    }
+</style>
+<script>
+    $('.datetimepicker').datetimepicker();
+</script>

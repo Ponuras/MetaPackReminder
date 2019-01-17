@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Nowe przypomnienie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Data.Reminder
+<div class="jumbotron">
+    <h1 class="display-4">@ViewBag.Title</h1>
+    <p class="lead">Chyba że nie pamiętasz :).</p>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+
+                <div class="form-group">
+                    <label>Tytuł</label>
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    <label>Opis</label>
+                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                </div>
+                
+                 <div class="form-group">
+                    <label>Emial</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type="email" })
+                </div>
+
+
+                <div class="form-group">
+                    <label>Opis</label>
+                    @Html.TextBoxFor(model => model.RemindDate, new { @class = "form-control datetimepicker" })
+                </div>
+                <div class="form-group">
+                    <label>Grupa</label>
+                    @Html.DropDownListFor(model => model.Group, (SelectList)ViewBag.Groups, "Wybierz", new { @class = "form-control" })
+                </div>
+    
+                <button type="submit" class="btn btn-primary">ZAPISZ</button>
+            }
+        </div>
+        <div class="col-lg-6">
+            <h5>TAGI</h5>
+            <hr />
+            <div id="DataTags">
+            </div>
+            <hr />
+            @using (Ajax.BeginForm("AddTag", "Reminders", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataTags" }))
+            {
+                <div class="form-group">
+                    <label>Nazwa tag'a</label>
+                    @Html.TextBox("Tag", "", new { @class = "form-control" })
+
+                </div>
+                <button class="btn btn-primary" type="submit">Dodaj</button>
+            }
+            <hr />
+
+            <h5>UCZESTNICY</h5>
+            <hr />
+            <div id="DataUsers">
+            </div>
+            <hr />
+            @using (Ajax.BeginForm("AddUser", "Reminders", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataUsers" }))
+            {
+                <div class="form-group">
+                    <label>Uczestnik</label>
+                    @Html.DropDownList("User",(SelectList)ViewBag.Users, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    @Html.TextBox("Email", "", new { @class = "form-control", type="email" })
+
+                </div>
+                <button class="btn btn-primary" type="submit">Dodaj</button>
+            }
+            <hr />
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $('.datetimepicker').datetimepicker(
+        {
+            format: 'Y-m-d H:i'
+        });
+
+
+</script>

@@ -1,0 +1,16 @@
+﻿@model List<Tuple<string, string>>
+
+
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-lg-10">@item.Item1 @item.Item2</div>
+                <div class="col-lg-2">@Ajax.ActionLink("Usuń", "RemoveUser", "Reminders", new { ID = Model.IndexOf(item) }, new AjaxOptions() { UpdateTargetId = "DataUsers", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger" })</div>
+            </div>
+        </li>
+    }
+
+</ul>
